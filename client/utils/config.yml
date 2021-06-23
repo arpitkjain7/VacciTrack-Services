@@ -1,0 +1,3 @@
+FCM:
+  API_KEY: !ENV "${api_key}"
+  TEST: "test"
