@@ -1,9 +1,7 @@
-from client.integration.external_caller import APIInterface
+from fastapi import FastAPI
 
-request = {
-    "to": "/topics/Vaccitrack",
-    "collapse_key": "type_a",
-    "data": {"body": "TriggerVaccineCheck", "title": "VacciTrack"},
-}
-response = APIInterface.post(route="https://fcm.googleapis.com/fcm/send", data=request)
-print(response)
+from client.api.api import api_router
+
+app = FastAPI()
+
+app.include_router(api_router)
