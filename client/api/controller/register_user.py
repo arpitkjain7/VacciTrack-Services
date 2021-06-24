@@ -1,4 +1,4 @@
-from client.crud.create_user_record import create_record
+from client.crud.user import create_record
 
 
 def register_user(user_data: dict):

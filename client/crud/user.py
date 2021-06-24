@@ -28,6 +28,24 @@ def create_record(user_data):
     )
 
 
+def get(conn, record):
+    c = conn.cursor()
+    print(f"{record=}")
+    sql = """SELECT * FROM USERS WHERE username=?"""
+    c.execute(sql, record)
+    return c.fetchall()
+
+
+def get_user(user_data):
+    conn = sqlite3.connect("db/vaccitrack-backend.db")
+    print(f"{user_data=}")
+    user_data = get(
+        conn,
+        (user_data["username"],),
+    )
+    return user_data
+
+
 # def update_dist_record(conn, record):
 #     c = conn.cursor()
 #     sql = """ UPDATE USERS
@@ -44,13 +62,6 @@ def create_record(user_data):
 #               WHERE username=?"""
 #     c.execute(sql, record)
 #     conn.commit()
-
-
-# def get(conn, record):
-#     c = conn.cursor()
-#     sql = """SELECT * FROM USERS WHERE username=?"""
-#     c.execute(sql, record)
-#     return c.fetchall()
 
 
 # def get_all():
