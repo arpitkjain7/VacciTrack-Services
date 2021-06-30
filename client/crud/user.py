@@ -8,8 +8,8 @@ def create(conn, record):
 
     c = conn.cursor()
     print(record)
-    sql = """ INSERT INTO USERS(username,name,app_id,email_id,timestamp)
-              VALUES(?,?,?,?,?) """
+    sql = """ INSERT INTO USERS(username,name,app_id,email_id,password,timestamp)
+              VALUES(?,?,?,?,?,?) """
     c.execute(sql, record)
     conn.commit()
 
@@ -23,6 +23,7 @@ def create_record(user_data):
             user_data["name"],
             user_data["app_id"],
             user_data["email_id"],
+            user_data["password"],
             today,
         ),
     )
