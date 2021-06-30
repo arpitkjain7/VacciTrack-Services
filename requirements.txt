@@ -5,3 +5,5 @@ fastapi==0.65.2
 pydantic==1.8.2
 uvicorn==0.13.3
 python-multipart==0.0.5
+PyJWT==2.1.0
+python-decouple==3.4
