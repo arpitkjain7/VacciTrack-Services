@@ -1,16 +1,24 @@
-from fastapi import APIRouter, File, UploadFile, HTTPException
+from fastapi import APIRouter, File, UploadFile, HTTPException, Depends
 from client.api.schema.data_collection import Data
 import os
 from datetime import datetime
 from typing import List
 import uuid
+from client.api.controller.authentication import validate_token
+from fastapi.security import OAuth2PasswordBearer
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 data_import_router = APIRouter()
 
 
 @data_import_router.post("/data_import")
-async def data_import(cowin_data: List[UploadFile] = File(...)):
+async def data_import(
+    cowin_data: List[UploadFile] = File(...),
+    token: str = Depends(oauth2_scheme),
+):
+    if len(validate_token(token=token)) == 0:
+        raise HTTPException(status_code=403, detail=f"Not authorized.")
     id = str(uuid.uuid1().int)
     UUID = str(int(datetime.now().timestamp() * 1000))
     batch_id = f"{UUID}{id[-4:]}"
